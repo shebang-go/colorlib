@@ -5,3 +5,5 @@ github.com/shebang-go/colorlib/base16 v0.1.5 h1:aLks7RxSgiSn7EZOELnjfg6QjPYTfeoI
 github.com/shebang-go/colorlib/base16 v0.1.5/go.mod h1:9R+INTfOpQSumzegi1ljV+lYVuEkwfix9i8deU3NUCA=
 github.com/shebang-go/colorlib/base16 v0.1.6 h1:C+1LjSMd3DRgT+Zcjo3VhZBuYlDU8szoPhsAmsGF71g=
 github.com/shebang-go/colorlib/base16 v0.1.6/go.mod h1:9R+INTfOpQSumzegi1ljV+lYVuEkwfix9i8deU3NUCA=
+github.com/shebang-go/colorlib/base16 v0.2.2 h1:WWpnoGgP5c/AF+as+DYD/FkVsKNp6DTe55OIsDNyKBM=
+github.com/shebang-go/colorlib/base16 v0.2.2/go.mod h1:9R+INTfOpQSumzegi1ljV+lYVuEkwfix9i8deU3NUCA=

@@ -12,7 +12,7 @@ func TestNewScheme(t *testing.T) {
 	var gotString string
 	var expectedInt int
 	var gotInt int
-	var scheme *Scheme
+	var scheme Scheme
 	var err error
 
 	scheme, err = NewScheme("test", "nobody")
@@ -76,7 +76,7 @@ func TestNewSchemeExtended(t *testing.T) {
 	// var gotString string
 	var expectedInt int
 	var gotInt int
-	var scheme *Scheme
+	var scheme Scheme
 	var err error
 
 	scheme, err = NewScheme("test", "nobody", 20)

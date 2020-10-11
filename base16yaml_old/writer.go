@@ -1,4 +1,4 @@
-package base16
+package base16yaml
 
 import (
 	// "fmt"

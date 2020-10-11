@@ -7,6 +7,6 @@ import (
 
 func main() {
 
-	fmt.Printf("example base16")
-	scheme := base16.NewScheme("demo", "wili")
+	scheme, _ := base16.NewScheme("demo", "wili")
+	fmt.Printf("scheme: %v", scheme)
 }

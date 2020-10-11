@@ -1,9 +1,9 @@
-package base16
+package base16yaml
 
 import (
 	// "fmt"
+	"github.com/shebang-go/colorlib/base16"
 	"io/ioutil"
-	// "os"
 	"strings"
 )
 

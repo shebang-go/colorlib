@@ -21,7 +21,9 @@ type FileReader struct {
 // ReadFile proxies to ioutil.ReadFile
 func (fr *FileReader) ReadFile(fname string) ([]byte, error) { return ioutil.ReadFile(fname) }
 
-func Load(fname string, readerArg ...Reader) (*base16.Scheme, error) {
+// Load loads a base16 yaml file given by fname and returns a Scheme interface
+// on success or an error on failure.
+func Load(fname string, readerArg ...Reader) (base16.Scheme, error) {
 	var reader Reader = &FileReader{}
 	var err error
 	var data []byte
@@ -50,7 +52,7 @@ func Load(fname string, readerArg ...Reader) (*base16.Scheme, error) {
 
 }
 
-func fromBase16Yaml(base16Yaml *Base16Yaml) (*base16.Scheme, error) {
+func fromBase16Yaml(base16Yaml *Base16Yaml) (base16.Scheme, error) {
 	extendedMode := false
 	if len(base16Yaml.colorNames) > 16 {
 		extendedMode = true
@@ -61,15 +63,14 @@ func fromBase16Yaml(base16Yaml *Base16Yaml) (*base16.Scheme, error) {
 		return nil, err
 	}
 
-	colorName := ""
 	for k, v := range base16Yaml.Data {
 		if base16.ValidColorName(k, extendedMode) {
 			scheme.SetColor(k, base16.NewColor(v))
 		} else if k == "author" {
-			scheme.SetAuthor(k)
+			scheme.SetAuthor(v)
 		} else if k == "scheme" {
-			scheme.SetScheme(k)
+			scheme.SetScheme(v)
 		}
 	}
-	return &scheme, nil
+	return scheme, nil
 }

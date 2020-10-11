@@ -1,5 +1,9 @@
 package base16yaml
 
+import (
+	"reflect"
+)
+
 var base16TestData = map[string]string{
 	"default-dark.yaml": `
 scheme: "Default Dark"
@@ -102,4 +106,29 @@ base20: "00ffff"
 	"invalid-yaml.yaml": `
 this wil fail
 `,
+}
+
+func getValue(field string, kind reflect.Kind, v interface{}) interface{} {
+	r := reflect.ValueOf(v)
+	retval := reflect.Indirect(r).FieldByName(field)
+	switch kind {
+	case reflect.String:
+		return retval.String()
+	case reflect.Int:
+		return int(retval.Int())
+	}
+	return retval
+}
+func getMethodValue(method string, args []reflect.Value, kind reflect.Kind, v interface{}) interface{} {
+	meth := reflect.ValueOf(v).MethodByName(method)
+	retval := meth.Call(args)[0]
+	switch kind {
+	case reflect.String:
+		return retval.String()
+	case reflect.Int:
+		return int(retval.Int())
+	case reflect.Bool:
+		return bool(retval.Bool())
+	}
+	return retval
 }

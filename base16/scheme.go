@@ -2,14 +2,16 @@ package base16
 
 import (
 	"fmt"
-	"strings"
 )
 
 const (
-	// ExtendedModeMaxColors specifies how many colors can be used in base16
-	// extended mode.
+	// ExtendedModeMaxColors specifies how many colors are valid in base16
+	// extended mode (experimental and non-standard).
 	ExtendedModeMaxColors = 32
-	Base16DefaultColors   = 16
+
+	// Base16DefaultColors specifies the default number of colors of a base16
+	// scheme.
+	Base16DefaultColors = 16
 )
 
 // Scheme defines the interface for a base16 scheme.
@@ -52,14 +54,9 @@ type SchemeData struct {
 	// scheme holds the scheme identifier (or name)
 	scheme string
 
-	// colors holds all base16 colors in a string map. When accessing colors
-	// keys are automatically converted to lower case characters.
+	// colors holds all base16 colors in a string map. Color names must be in
+	// upper case hex format.
 	colors map[string]Color
-
-	// fileKeys maps lower case key names (memory) to the case of the original key
-	// names in the yaml file so that the original case is preserved when writing
-	// files.
-	// fileKeys Base16FileKeys
 
 	// // sortedColorNames contains all color names sorted alphabetically.
 	sortedColorNames []string
@@ -95,10 +92,6 @@ func NewScheme(schemeName string, author string, countColorsOverride ...int) (Sc
 		extendedMode:     extendedMode,
 		sortedColorNames: ColorNames(countColors),
 		colors:           make(map[string]Color, countColors),
-		// fileKeys: Base16FileKeys{
-		// 	colorNameKeys: make(map[string]string, countColors),
-		// 	otherKeys:     make(map[string]string, 2),
-		// },
 	}
 
 	for _, k := range scheme.sortedColorNames {
@@ -134,7 +127,7 @@ func (scheme *SchemeData) CountColors() int {
 
 // GetColor returns the color specified by colorname
 func (scheme *SchemeData) GetColor(colorname string) Color {
-	return scheme.colors[strings.ToLower(colorname)]
+	return scheme.colors[colorname]
 }
 
 // GetColorNames returns a sorted string slice of all color names
@@ -144,7 +137,7 @@ func (scheme *SchemeData) GetColorNames() []string {
 
 // SetColor sets the color c for color name
 func (scheme *SchemeData) SetColor(colorname string, c Color) {
-	scheme.colors[strings.ToLower(colorname)] = c
+	scheme.colors[colorname] = c
 }
 
 // ExtendedModeOn returns the extended mode flag

@@ -99,13 +99,13 @@ func TestColorNameIndex(t *testing.T) {
 		t.Errorf("expected value=%d, got=%d", expectInt, gotInt)
 	}
 
-	gotInt = ColorNameIndex("base0a")
+	gotInt = ColorNameIndex("base0A")
 	expectInt = 10
 	if gotInt != expectInt {
 		t.Errorf("expected value=%d, got=%d", expectInt, gotInt)
 	}
 
-	gotInt = ColorNameIndex("base0f")
+	gotInt = ColorNameIndex("base0F")
 	expectInt = 15
 	if gotInt != expectInt {
 		t.Errorf("expected value=%d, got=%d", expectInt, gotInt)
@@ -123,13 +123,13 @@ func TestColorIndexName(t *testing.T) {
 	}
 
 	gotString = ColorIndexName(10)
-	expectString = "base0a"
+	expectString = "base0A"
 	if gotString != expectString {
 		t.Errorf("expected value=%s, got=%s", expectString, gotString)
 	}
 
 	gotString = ColorIndexName(15)
-	expectString = "base0f"
+	expectString = "base0F"
 	if gotString != expectString {
 		t.Errorf("expected value=%s, got=%s", expectString, gotString)
 	}
@@ -150,12 +150,12 @@ func TestGetColorNames(t *testing.T) {
 		"base07",
 		"base08",
 		"base09",
-		"base0a",
-		"base0b",
-		"base0c",
-		"base0d",
-		"base0e",
-		"base0f",
+		"base0A",
+		"base0B",
+		"base0C",
+		"base0D",
+		"base0E",
+		"base0F",
 	}
 	if !reflect.DeepEqual(expect, got) {
 		t.Errorf("expected value=%v, got=%v", expect, got)
@@ -169,11 +169,11 @@ func TestValidColorName(t *testing.T) {
 	if !ValidColorName(colorname) {
 		t.Errorf("expected colorname=%s to be valid (true)", colorname)
 	}
-	colorname = "base0a"
+	colorname = "base0A"
 	if !ValidColorName(colorname) {
 		t.Errorf("expected colorname=%s to be valid (true)", colorname)
 	}
-	colorname = "base0f"
+	colorname = "base0F"
 	if !ValidColorName(colorname) {
 		t.Errorf("expected colorname=%s to be valid (true)", colorname)
 	}

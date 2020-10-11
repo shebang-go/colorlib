@@ -11,7 +11,7 @@ import (
 	"testing"
 )
 
-func TestIntegrationSaveBase16Scheme(t *testing.T) {
+func TestIntegrationBase16YamlSave(t *testing.T) {
 	schemeSaveFile, err := ioutil.TempFile("", "base16scheme")
 	if err != nil {
 		t.Fatal(err)
@@ -19,11 +19,11 @@ func TestIntegrationSaveBase16Scheme(t *testing.T) {
 	defer os.Remove(schemeSaveFile.Name())
 
 	_, filename, _, _ := runtime.Caller(0)
-	testFile := path.Join(path.Dir(filename), "./test/data/default-dark.yaml")
+	testFile := path.Join(path.Dir(filename), "./testdata/data/default-dark.yaml")
 
-	base16Scheme, _ := LoadBase16Scheme(testFile)
+	base16Scheme, _ := Load(testFile)
 
-	SaveBase16Scheme(schemeSaveFile.Name(), base16Scheme, 0700)
+	Save(schemeSaveFile.Name(), base16Scheme, 0700)
 	data, err := ioutil.ReadFile(schemeSaveFile.Name())
 	if err != nil {
 		t.Fatal(err)

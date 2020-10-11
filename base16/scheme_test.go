@@ -58,12 +58,12 @@ func TestNewScheme(t *testing.T) {
 		"base07",
 		"base08",
 		"base09",
-		"base0a",
-		"base0b",
-		"base0c",
-		"base0d",
-		"base0e",
-		"base0f",
+		"base0A",
+		"base0B",
+		"base0C",
+		"base0D",
+		"base0E",
+		"base0F",
 	}
 	if !reflect.DeepEqual(expectedColorNames, gotColorNames) {
 		t.Errorf("expected value=%v, got=%v", expectedColorNames, gotColorNames)
@@ -107,12 +107,12 @@ func TestNewSchemeExtended(t *testing.T) {
 		"base07",
 		"base08",
 		"base09",
-		"base0a",
-		"base0b",
-		"base0c",
-		"base0d",
-		"base0e",
-		"base0f",
+		"base0A",
+		"base0B",
+		"base0C",
+		"base0D",
+		"base0E",
+		"base0F",
 		"base10",
 		"base11",
 		"base12",
@@ -158,7 +158,7 @@ func TestGetColor(t *testing.T) {
 	}
 
 	expectedColor = NoColor
-	gotColor = scheme.GetColor("base0f")
+	gotColor = scheme.GetColor("base0F")
 	if expectedColor != gotColor {
 		t.Errorf("expected value=%d, got=%d", expectedColor, gotColor)
 	}

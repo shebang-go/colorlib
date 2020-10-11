@@ -73,6 +73,8 @@ func TestSaveBase16Scheme(t *testing.T) {
 
 						t.Errorf("expected value=%s, got value=%s", expectedValue, fields[1])
 					}
+				} else {
+					t.Errorf("expected fieldName=%s to be present in expected map", fields[0])
 				}
 			}
 		}

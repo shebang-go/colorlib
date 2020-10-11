@@ -62,7 +62,6 @@ func TestIntegrationBase16YamlSave(t *testing.T) {
 				}
 			} else {
 				t.Errorf("expected fieldName=%s to be present in expected map", fields[0])
-
 			}
 		}
 	}

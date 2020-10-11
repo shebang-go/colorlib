@@ -56,21 +56,19 @@ func fromBase16Yaml(base16Yaml *Base16Yaml) (*base16.Scheme, error) {
 		extendedMode = true
 	}
 
-	scheme := base16.SchemeData{
-		author:       base16Yaml.Data["author"],
-		scheme:       base16Yaml.Data["scheme"],
-		colors:       make(map[string]Color, len(base16Yaml.colorNames)),
-		extendedMode: extendedMode,
+	scheme, err := base16.NewScheme(base16Yaml.Data["author"], base16Yaml.Data["scheme"], len(base16Yaml.colorNames))
+	if err != nil {
+		return nil, err
 	}
 
 	colorName := ""
 	for k, v := range base16Yaml.Data {
 		if base16.ValidColorName(k, extendedMode) {
-			colorName = strings.ToLower(k)
-			scheme.fileKeys.colorNameKeys[colorName] = k
-			scheme.colors[colorName] = NewColor(v)
-		} else {
-			scheme.fileKeys.otherKeys[strings.ToLower(k)] = k
+			scheme.SetColor(k, base16.NewColor(v))
+		} else if k == "author" {
+			scheme.SetAuthor(k)
+		} else if k == "scheme" {
+			scheme.SetScheme(k)
 		}
 	}
 	return &scheme, nil

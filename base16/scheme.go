@@ -17,8 +17,14 @@ type Scheme interface {
 	// Author returns the author of a scheme
 	Author() string
 
+	// SetAuthor sets the author name of the scheme
+	SetAuthor(name string)
+
 	// Scheme returns the scheme identifier (name)
 	Scheme() string
+
+	// SetScheme sets the scheme identifier of the scheme
+	SetScheme(name string)
 
 	// CountColors returns the number of colors
 	CountColors() int
@@ -106,9 +112,19 @@ func (scheme *SchemeData) Author() string {
 	return scheme.author
 }
 
+// SetAuthor sets the author name of the scheme
+func (scheme *SchemeData) SetAuthor(name string) {
+	scheme.author = name
+}
+
 // Scheme returns the scheme identifier (name)
 func (scheme *SchemeData) Scheme() string {
 	return scheme.scheme
+}
+
+// SetScheme sets the scheme identifier of the scheme
+func (scheme *SchemeData) SetScheme(name string) {
+	scheme.scheme = name
 }
 
 // CountColors returns the number of colors

@@ -189,3 +189,25 @@ func TestSetColor(t *testing.T) {
 		t.Errorf("expected value=%d, got=%d", expectColor, gotColor)
 	}
 }
+
+func TestSetAuthor(t *testing.T) {
+	scheme, _ := NewScheme("test", "nobody")
+
+	scheme.SetAuthor("fred")
+	expectString := "fred"
+	gotString := scheme.Author()
+	if gotString != expectString {
+		t.Errorf("expected value=%s, got=%s", expectString, gotString)
+	}
+}
+
+func TestSetScheme(t *testing.T) {
+	scheme, _ := NewScheme("test", "nobody")
+
+	scheme.SetScheme("new scheme")
+	expectString := "new scheme"
+	gotString := scheme.Scheme()
+	if gotString != expectString {
+		t.Errorf("expected value=%s, got=%s", expectString, gotString)
+	}
+}

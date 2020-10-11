@@ -1,1 +1,4 @@
 github.com/shebang-go/colorlib v0.0.0-20201011131346-3c0ec9439a09 h1:rzbdowQs61j1Y6pFX4Dlw1fkiTkBZkjHQXQZpncQdDE=
+github.com/shebang-go/colorlib v0.0.0-20201011183433-562f472c2d83 h1:0SA/47EMJm93So8C268X4iUAY0WOCLAKe/vM7NJl3Pk=
+github.com/shebang-go/colorlib/base16 v0.1.5 h1:aLks7RxSgiSn7EZOELnjfg6QjPYTfeoIKtAvoGCbBcU=
+github.com/shebang-go/colorlib/base16 v0.1.5/go.mod h1:9R+INTfOpQSumzegi1ljV+lYVuEkwfix9i8deU3NUCA=

@@ -1,10 +1,15 @@
 package base16yaml
 
 import (
+	"flag"
 	"fmt"
+	"path"
 	"reflect"
+	"runtime"
 	"testing"
 )
+
+var mock = flag.Bool("mock", true, "only perform tests using mocks")
 
 type ReaderMockError struct {
 }
@@ -21,8 +26,25 @@ func (rm *ReaderMock) ReadFile(fname string) ([]byte, error) {
 }
 
 func TestBase16YamlLoad(t *testing.T) {
-	mock := &ReaderMock{}
-	base16Scheme, _ := Load("default-dark.yaml", mock)
+	var base16Scheme interface{}
+	var err error
+	var testFile string
+
+	if *mock {
+		testFile = "default-dark.yaml"
+		t.Logf("using mocked test, mock file: %s", testFile)
+		mock := &ReaderMock{}
+		base16Scheme, _ = Load(testFile, mock)
+	} else {
+		_, filename, _, _ := runtime.Caller(0)
+		testFile = path.Join(path.Dir(filename), "./testdata/data/default-dark.yaml")
+		t.Logf("using non-mocked test, yaml file: %s", path.Base(testFile))
+
+		base16Scheme, err = Load(testFile)
+		if err != nil {
+			t.Errorf("expected no error err=%v", err)
+		}
+	}
 
 	tests := map[string]struct {
 		method string
@@ -60,8 +82,25 @@ func TestBase16YamlLoad(t *testing.T) {
 }
 
 func TestBase16YamlLoadExtended(t *testing.T) {
-	mock := &ReaderMock{}
-	base16Scheme, _ := Load("default-dark-extended.yaml", mock)
+	var base16Scheme interface{}
+	var err error
+	var testFile string
+
+	if *mock {
+		testFile = "default-dark-extended.yaml"
+		t.Logf("using mocked test, mock file: %s", testFile)
+		mock := &ReaderMock{}
+		base16Scheme, _ = Load(testFile, mock)
+	} else {
+		_, filename, _, _ := runtime.Caller(0)
+		testFile = path.Join(path.Dir(filename), "./testdata/data/default-dark-extended.yaml")
+		t.Logf("using non-mocked test, yaml file: %s", path.Base(testFile))
+
+		base16Scheme, err = Load(testFile)
+		if err != nil {
+			t.Errorf("expected no error err=%v", err)
+		}
+	}
 
 	tests := map[string]struct {
 		method string
@@ -101,30 +140,64 @@ func TestBase16YamlLoadExtended(t *testing.T) {
 		}
 	}
 }
+func TestBase16YamlLoadInvalidExtendedScheme(t *testing.T) {
+	var err error
+	var testFile string
 
-func TestBase16YamlLoadError(t *testing.T) {
-	mock := &ReaderMock{}
-	_, err := Load("default-dark-extended-invalid.yaml", mock)
-	if err == nil {
-		t.Fatalf("expected error not nil")
-	}
-	_, err = Load("default-dark-missing-colors.yaml", mock)
-	if err == nil {
-		t.Fatalf("expected error not nil")
-	}
-	_, err = Load("invalid-yaml.yaml", mock)
-	if err == nil {
-		t.Fatalf("expected error not nil")
-	}
-
-	mockErr := &ReaderMockError{}
-	_, err = Load("default-dark.yaml", mockErr)
-	if err == nil {
-		t.Fatalf("expected error not nil")
+	if *mock {
+		testFile = "default-dark-extended.yaml"
+		t.Logf("using mocked test, mock file: %s", testFile)
+		mock := &ReaderMock{}
+		_, err = Load("default-dark-extended-invalid.yaml", mock)
+	} else {
+		_, filename, _, _ := runtime.Caller(0)
+		testFile = path.Join(path.Dir(filename), "./testdata/data/default-dark-extended-invalid.yaml")
+		t.Logf("using non-mocked test, yaml file: %s", path.Base(testFile))
+		_, err = Load(testFile)
 	}
 
-	_, err = Load("default-dark.yaml", mock)
-	if err != nil {
-		t.Fatalf("expected no error, got err: %v ", err)
+	if err == nil {
+		t.Fatalf("expected error not nil")
+	}
+}
+func TestBase16YamlLoadInvalidScheme(t *testing.T) {
+	var err error
+	var testFile string
+
+	if *mock {
+		testFile = "default-dark-extended.yaml"
+		t.Logf("using mocked test, mock file: %s", testFile)
+		mock := &ReaderMock{}
+		_, err = Load("default-dark-extended-invalid.yaml", mock)
+	} else {
+		_, filename, _, _ := runtime.Caller(0)
+		testFile = path.Join(path.Dir(filename), "./testdata/data/default-dark-missing-colors.yaml")
+		t.Logf("using non-mocked test, yaml file: %s", path.Base(testFile))
+		_, err = Load(testFile)
+	}
+
+	if err == nil {
+		t.Fatalf("expected error not nil")
+	}
+}
+
+func TestBase16YamlLoadInvalidYaml(t *testing.T) {
+	var err error
+	var testFile string
+
+	if *mock {
+		testFile = "invalid-yaml.yaml"
+		t.Logf("using mocked test, mock file: %s", testFile)
+		mock := &ReaderMock{}
+		_, err = Load("default-dark-extended-invalid.yaml", mock)
+	} else {
+		_, filename, _, _ := runtime.Caller(0)
+		testFile = path.Join(path.Dir(filename), "./testdata/data/invalid-yaml.yaml")
+		t.Logf("using non-mocked test, yaml file: %s", path.Base(testFile))
+		_, err = Load(testFile)
+	}
+
+	if err == nil {
+		t.Fatalf("expected error not nil")
 	}
 }
